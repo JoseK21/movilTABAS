@@ -7,32 +7,52 @@
 </div>
 
 <!-- Log In -->
-<form class="form-horizontal">  
+<form class="form-horizontal">
   <div class="form-group">
     <label for="input_Username" class="col-sm-2 control-label">Username</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="input_Username" placeholder="Username" required>
+      <input type="text" class="form-control" id="input_Username" placeholder="Username">
     </div>
   </div>
   <div class="form-group">
     <label for="input_Password" class="col-sm-2 control-label">Password</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="input_Password" placeholder="Password" required>
+      <input type={{password_show}} class="form-control" id="input_Password" placeholder="Password">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="check_Password" (click)="showPassword()">
+        <label class="form-check-label" for="check_Password">
+          Show
+        </label>
+      </div>
     </div>
   </div>
 
   <div class="form-group">
+    <label for="input_Role" class="col-sm-1 control-label" >Role</label>
+    <div class="col-sm-10">
+      <select class="form-control" id="input_Role">
+        <option>Embarcador</option>
+        <option>Scan</option>
+        <option>Administrator</option>
+        <option>Receptionist</option>
+      </select>
+    </div>
+  </div>
+
+
+  <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10 ">
-      <button type="button" class="btn btn-info btn-block" >Log In</button>
+      <button type="button" class="btn btn-info btn-block" (click)="getDataFromDOM()">Log In</button>
       <br>
 
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
+      <div *ngIf="show_alert">      
+      <div class="alert alert-{{type_alert}} alert-dismissible fade show" role="alert" >        
+        {{text_alert}}
+        <button type="button"  class="close" data-dismiss="alert" aria-label="Close" (click)="show_Alert(false)" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
       <div class="row justify-content-center">
         <div class="col-8">
           <button type="button" class="btn btn-success btn-block" routerLink="SignUpAdmin" >Create New Account</button>

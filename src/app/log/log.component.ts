@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-log',
@@ -6,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./log.component.css']
 })
 export class LogComponent implements OnInit {
-  modal : boolean = false ;
+  // Show password : check box
+  password_show : string = 'password';
+
+  // Alert 
+  show_alert : boolean = false;
+  text_alert : string = 'All is perfect';
+  type_alert : string = 'success';
 
   constructor() { }
 
@@ -16,14 +23,38 @@ export class LogComponent implements OnInit {
   /**
    * show_Modal
    */
-  public show_Modal() {
-    this.modal = true;
+  public show_Alert(value : boolean) {
+    this.show_alert = value;
+  }
+
+  
+  /**
+   * getDataFromDOM
+   */
+  public getDataFromDOM() {
+    let username : string = (<HTMLInputElement>document.getElementById("input_Username")).value.trim(); 
+    let password : string = (<HTMLInputElement>document.getElementById("input_Password")).value.trim(); 
+    let role : string = (<HTMLInputElement>document.getElementById("input_Role")).value.trim();
+    
+    if(username.length == 0 || password.length == 0 || role.length == 0){      
+      this.show_alert = true;
+      this.text_alert = 'Empty spaces';
+      this.type_alert  = 'warning';
+    }else{
+      this.show_alert = true;
+      this.text_alert = "Username : "+username + "\nPassword : "+password +"\nRole : "+ role;
+      this.type_alert  = 'success';
+    }
   }
 
   /**
-   * show_Modal
+   * showPassword
    */
-  public hide_Modal() {
-    this.modal = false;
+  public showPassword() {
+    if((<HTMLInputElement>document.getElementById("check_Password")).checked){
+      this.password_show = 'text';
+    }else{
+      this.password_show = 'password';
+    }    
   }
 }
