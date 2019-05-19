@@ -10,6 +10,7 @@ import { RejectionComponent } from './rejection/rejection.component';
 import { AssignmentComponent } from './assignment/assignment.component';
 import { ActionsComponent } from './actions/actions.component';
 import { MainComponent } from './main/main.component';
+import { SignOutComponent } from './sign-out/sign-out.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MainComponent } from './main/main.component';
     RejectionComponent,
     AssignmentComponent,
     ActionsComponent,
-    MainComponent
+    MainComponent,
+    SignOutComponent
   ],
   imports: [
     BrowserModule,
