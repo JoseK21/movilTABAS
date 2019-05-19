@@ -1,0 +1,8 @@
+<div *ngIf="show=='log_in'">
+    <app-log (messageEvent)="receiveMessage($event)"></app-log>
+
+</div>
+
+<div *ngIf="show=='actions'">
+  <app-actions  [childMessage]="username"> </app-actions>
+</div>
