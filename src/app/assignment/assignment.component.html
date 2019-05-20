@@ -1,3 +1,66 @@
-<p>
-  assignment works!
-</p>
+<br>
+<label for="input_suitcase_id">Suitcase Id</label>
+<input class="form-control" type="text" placeholder="Suitcase ID" id="input_suitcase_id">
+<br>
+<button class="btn btn-outline-success btn-block" type="button" (click)="status_scan()">Scanning</button>
+
+<br>
+
+
+<div class="d-flex justify-content-center" *ngIf="status_scanning=='1'">
+  <div class="spinner-border text-info" style="width: 10rem; height: 10rem;" role="status">
+  </div>
+</div>
+
+<div class="form-group ">
+  <form *ngIf="status_scanning=='2'">
+    <label for="input_Flight_Id">Flight Id</label>
+    <select id="input_Flight_Id" class="form-control" (click)="hidSectionAndAssignment()">
+      <option>F1</option>
+      <option>F2</option>
+      <option>F3</option>
+    </select>
+    <br>
+    <button class="btn btn-outline-success btn-block" type="button" (click)="enableSectionAndAssignment()">Search
+      Section</button>
+
+    <div>
+      <div class="form-group">
+        <br>
+        <label for="input_Section">Section</label>
+        <select id="input_Section" class="form-control"  [disabled]="show_S_A">
+          <option>W1</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-info btn-block" id="button_assignment" [disabled]="show_S_A" >Assignment</button>
+    </div>
+    <br>
+  </form>
+</div>
+
+<form *ngIf="status_scanning=='3'">
+  <div class="alert alert-warning" role="alert">
+    <strong> Warning </strong>: Prohibited products.
+  </div>
+  <div class="form-group">
+    <label for="input_Status">Status</label>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="switch_rejection" (click)="switch_On()">
+      <label class="custom-control-label" for="switch_rejection">Rejection</label>
+    </div>
+  </div>
+
+  <div class="form-group" [hidden]="!status_rejection">
+    <label for="exampleFormControlTextarea1">Comment</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <small class="text-muted">
+      Write a comment explaining why the suitcase was rejected
+    </small>
+    <br>
+  </div>
+
+  <div class="form-group" [hidden]="!status_rejection">
+    <button type="button" class="btn btn-danger btn-block">To Refuse</button>
+  </div>
+
+</form>

@@ -8,7 +8,8 @@ import { LogComponent } from '../log/log.component';
 })
 export class MainComponent implements OnInit {
 
-  show : string = 'log_in';
+  show : string = 'actions';
+  // show : string = 'log_in';
   username : string = '';
 
   parentMessage = "message from parent"
