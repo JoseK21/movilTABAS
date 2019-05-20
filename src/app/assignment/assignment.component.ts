@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { delay } from 'q';
 
 @Component({
@@ -7,6 +7,8 @@ import { delay } from 'q';
   styleUrls: ['./assignment.component.css']
 })
 export class AssignmentComponent implements OnInit {
+  @Input() childMessage: string;      // Username from log In
+  
 
   status_scanning: String = '';   // 0: Nothing -- 1: Spinner -- 2: Options
   status_rejection: boolean = false;
@@ -30,6 +32,9 @@ export class AssignmentComponent implements OnInit {
         (<HTMLInputElement>document.getElementById("input_suitcase_id")).disabled = false;
       }, 4000);
       (<HTMLInputElement>document.getElementById("input_suitcase_id")).disabled = true;      
+    }
+    else{
+      this.status_scanning = suitcase_ID;
     }
   }
 
@@ -57,6 +62,18 @@ export class AssignmentComponent implements OnInit {
    */
   public hidSectionAndAssignment() {
     this.show_S_A = true;
+  }
+
+  /**
+   * assignment
+   */
+  public assignment() {
+    alert(
+      "Username : "+this.childMessage  
+    + "\nSuitcase Id : " + (<HTMLInputElement>document.getElementById("input_suitcase_id")).value
+    +"\nFlight Id : "+(<HTMLInputElement>document.getElementById("input_Flight_Id")).value 
+    +"\nSection : "+(<HTMLInputElement>document.getElementById("input_Section")).value     
+    );    
   }
 
 }

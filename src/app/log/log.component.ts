@@ -8,7 +8,7 @@ import { Alert } from 'selenium-webdriver';
 })
 export class LogComponent implements OnInit {
 
-  @Output() messageEvent = new EventEmitter<string>();
+  @Output() messageEvent = new EventEmitter<string>();  // nombre de usuario en msg
 
   sendUsername(username:string) {
     this.messageEvent.emit(username)

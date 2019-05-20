@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-scanning',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./scanning.component.css']
 })
 export class ScanningComponent implements OnInit {
+  @Input() childMessage: string;
 
   constructor() { }
 
