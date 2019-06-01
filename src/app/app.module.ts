@@ -10,6 +10,7 @@ import { AssignmentComponent } from './assignment/assignment.component';
 import { ActionsComponent } from './actions/actions.component';
 import { MainComponent } from './main/main.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SignOutComponent } from './sign-out/sign-out.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],

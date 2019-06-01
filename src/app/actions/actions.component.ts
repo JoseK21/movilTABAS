@@ -7,8 +7,6 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ActionsComponent implements OnInit {
 
-  
-
   constructor() { }
 
   ngOnInit() {
@@ -17,16 +15,11 @@ export class ActionsComponent implements OnInit {
 
   @Input() childMessage: string;    // Username from log -> from main
   parentMessage : string = 'Empty';
-  
-  
-
+   
   /**
    * init
    */
   public init_init() {    
     this.parentMessage = this.childMessage;
   }
-
-  
-
 }

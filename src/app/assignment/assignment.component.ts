@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { delay } from 'q';
+import { ServiceScanService } from '../services/service-scan.service';
 
 @Component({
   selector: 'app-assignment',
@@ -8,34 +9,56 @@ import { delay } from 'q';
 })
 export class AssignmentComponent implements OnInit {
   @Input() childMessage: string;      // Username from log In
-  
+
 
   status_scanning: String = '';   // 0: Nothing -- 1: Spinner -- 2: Options
   status_rejection: boolean = false;
   show_S_A: boolean = true;
 
-  constructor() { }
+  pass: boolean = false;
+  status: string = '';
+
+  constructor(private service_scan: ServiceScanService) { }
 
   ngOnInit() {
-    
+  }
+
+
+  /**
+   * scanBaggage
+   */
+  public scanBaggage() {
+    this.service_scan.scanBaggage().subscribe((jsonTransfer) => {
+      const userStr = JSON.stringify(jsonTransfer);
+      const jsonWEBAPI = JSON.parse(JSON.parse(userStr));
+      console.log(jsonWEBAPI);
+      if (jsonWEBAPI.http_result == 1) {
+        this.pass = jsonWEBAPI.pass;
+        this.status = jsonWEBAPI.status;
+        if (this.pass == true) {
+          this.status_scanning = '2';
+        } else if (this.pass == false) {
+          this.status_scanning = '3';
+        } else {
+          alert("ERROR DE COMUNICACIÓN");
+        }
+      }
+    });
   }
 
   /**
    *  status_scan
    */
   public status_scan() {
-    let suitcase_ID: string = (<HTMLInputElement>document.getElementById("input_suitcase_id")).value.trim();
-    if (suitcase_ID == '1') {
-      this.status_scanning = '1';
-      setTimeout(() => {
-        this.status_scanning = '2';
-        (<HTMLInputElement>document.getElementById("input_suitcase_id")).disabled = false;
-      }, 4000);
-      (<HTMLInputElement>document.getElementById("input_suitcase_id")).disabled = true;      
-    }
-    else{
-      this.status_scanning = suitcase_ID;
-    }
+
+    this.status_scanning = '1'; // Show Sppiner
+
+    (<HTMLInputElement>document.getElementById("input_suitcase_id")).disabled = true;
+
+    setTimeout(() => {
+      this.scanBaggage();
+      (<HTMLInputElement>document.getElementById("input_suitcase_id")).disabled = false;
+    }, 4000);
   }
 
   /**
@@ -69,11 +92,11 @@ export class AssignmentComponent implements OnInit {
    */
   public assignment() {
     alert(
-      "Username : "+this.childMessage  
-    + "\nSuitcase Id : " + (<HTMLInputElement>document.getElementById("input_suitcase_id")).value
-    +"\nFlight Id : "+(<HTMLInputElement>document.getElementById("input_Flight_Id")).value 
-    +"\nSection : "+(<HTMLInputElement>document.getElementById("input_Section")).value     
-    );    
+      "Username : " + this.childMessage
+      + "\nSuitcase Id : " + (<HTMLInputElement>document.getElementById("input_suitcase_id")).value
+      + "\nFlight Id : " + (<HTMLInputElement>document.getElementById("input_Flight_Id")).value
+      + "\nSection : " + (<HTMLInputElement>document.getElementById("input_Section")).value
+    );
   }
 
 }

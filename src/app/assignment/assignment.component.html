@@ -1,4 +1,3 @@
-
 <br>
 <label for="input_suitcase_id">Suitcase Id</label>
 <input class="form-control" type="text" placeholder="Suitcase ID" id="input_suitcase_id">
@@ -29,14 +28,15 @@
       <div class="form-group">
         <br>
         <label for="input_Section">Section</label>
-        <select id="input_Section" class="form-control"  [disabled]="show_S_A">
+        <select id="input_Section" class="form-control" [disabled]="show_S_A">
           <option>S1</option>
           <option>S2</option>
           <option>S3</option>
           <option>S4</option>
         </select>
       </div>
-      <button type="button" class="btn btn-info btn-block" id="button_assignment" [disabled]="show_S_A" (click)="assignment()">Assignment</button>
+      <button type="button" class="btn btn-info btn-block" id="button_assignment" [disabled]="show_S_A"
+        (click)="assignment()">Assignment</button>
     </div>
     <br>
   </form>
