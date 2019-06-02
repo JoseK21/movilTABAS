@@ -10,7 +10,7 @@ import { ServiceLogInService } from '../services/service-log-in.service';
 })
 export class LogComponent implements OnInit {
 
-  
+
   // Show password : check box
   password_show: string = 'password';
 
@@ -46,25 +46,37 @@ export class LogComponent implements OnInit {
 
 
   /**
-   * getDataFromDOM
+   * Log In
    */
-  public getDataFromDOM() {
+  public logIn() {
     let username: string = (<HTMLInputElement>document.getElementById("input_Username")).value.trim();
     let password: string = (<HTMLInputElement>document.getElementById("input_Password")).value.trim();
     let role: string = (<HTMLInputElement>document.getElementById("input_Role")).value.trim();
 
-    if (username.length == 0 || password.length == 0) { //if (username.length == 0 || password.length == 0 || role.length == 0) {
+    if (username.length == 0 || password.length == 0 ||role == 'ERROR') { //if (username.length == 0 || password.length == 0 || role.length == 0) {
       this.show_alert = true;
       this.text_alert = 'Empty spaces';
       this.type_alert = 'warning';
     } else {
-      this.show_alert = true;
-      this.text_alert = "Username : " + username + "\nPassword : " + password + "\nRole : " + role;
-      this.type_alert = 'success';
+      const json = {
+        username: username,
+        password: password,
+        role: role
+      };
 
-      this.sendUsername(username);
-
-      this.router_Link = 'Actions';
+      this.service_LogIn.logIn(json).subscribe((jsonTransfer) => {
+        const userStr = JSON.stringify(jsonTransfer);
+        const jsonWEBAPI = JSON.parse(JSON.parse(userStr));
+        console.log(jsonWEBAPI);
+        if (jsonWEBAPI.http_result == 1) {
+          this.sendUsername(username);
+          this.router_Link = 'Actions';
+        } else {
+          this.show_alert = true;
+          this.text_alert = jsonWEBAPI.msg;
+          this.type_alert = 'danger';
+        }
+      });
     }
   }
 

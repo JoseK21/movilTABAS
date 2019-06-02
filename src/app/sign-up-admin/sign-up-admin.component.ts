@@ -7,7 +7,7 @@ import { ServiceSignUpService } from '../services/service-sign-up.service';
   styleUrls: ['./sign-up-admin.component.css']
 })
 export class SignUpAdminComponent implements OnInit {
-
+  con: number = 0;
   // Alert 
   show_alert: boolean = false;
   text_alert: string = '';
@@ -102,26 +102,33 @@ export class SignUpAdminComponent implements OnInit {
       };
 
       this.service.signUpAdmin(json).subscribe((jsonTransfer) => {
+        alert((JSON.stringify(jsonTransfer)));
+
         const jsonWEBAPI = JSON.parse(JSON.parse(JSON.stringify(jsonTransfer)));
         if (jsonWEBAPI.http_result == 1) {
-          const json_role = {
-            roles: this.roleCheck()
-          };
-          this.service.adminSetRole(username, json_role).subscribe((jsonTransferRole) => {
-            const jsonWEBAPI_Role = JSON.parse(JSON.parse(JSON.stringify(jsonTransferRole)));
-            if (jsonWEBAPI_Role.http_result == 1) {
-              this.text_alert = jsonWEBAPI_Role.msg;
-              this.type_alert = 'success';
-            } else {
-              this.text_alert = jsonWEBAPI_Role.msg;
-              this.type_alert = 'danger';
-            }
-          });
+          this.con = 1;
         } else {
-          this.text_alert = jsonWEBAPI.msg;
-          this.type_alert = 'danger';
+          this.con = 0;
         }
       });
+      if (this.con == 1) {
+        const json_role = {
+          roles: this.roleCheck()
+        };
+        this.service.adminSetRole(username, json_role).subscribe((jsonTransferRole) => {
+          const jsonWEBAPI_Role = JSON.parse(JSON.parse(JSON.stringify(jsonTransferRole)));
+          if (jsonWEBAPI_Role.http_result == 1) {
+            this.text_alert = jsonWEBAPI_Role.msg;
+            this.type_alert = 'success';
+          } else {
+            this.text_alert = jsonWEBAPI_Role.msg;
+            this.type_alert = 'danger';
+          }
+        });
+      } else {
+        this.text_alert = 'ERROR by assing roles to user';
+        this.type_alert = 'danger';
+      }
     }
     this.show_alert = true;
   }
