@@ -29,5 +29,15 @@ export class ServiceScanService {
     console.log(path);
     return this.http.get(path);
   }
+
+  /**
+   * Get all Flights
+   */
+  getFlights() {
+    const path = `${this.api}flights/active`;
+    console.log(path);
+    return this.http.get(path);
+  }
+  
 }
 

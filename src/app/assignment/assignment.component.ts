@@ -18,9 +18,26 @@ export class AssignmentComponent implements OnInit {
   pass: boolean = false;
   status: string = '';
 
+  flights: []; // List of flights
+
+
   constructor(private service_scan: ServiceScanService) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  /**
+   * getFlights
+   */
+  public getFlights() {
+    this.service_scan.getFlights().subscribe((jsonTransfer) => {
+      const jsonWEBAPI = JSON.parse(JSON.parse(JSON.stringify(jsonTransfer)));
+      console.log(jsonWEBAPI);
+      if (jsonWEBAPI.http_result == 1) {
+        this.flights = jsonWEBAPI.flights;        
+      } else {
+        this.flights = [];
+      }
+    });
   }
 
 
@@ -36,7 +53,8 @@ export class AssignmentComponent implements OnInit {
         this.pass = jsonWEBAPI.pass;
         this.status = jsonWEBAPI.status;
         if (this.pass == true) {
-          this.status_scanning = '2';
+          this.getFlights();
+          this.status_scanning = '2';          
         } else if (this.pass == false) {
           this.status_scanning = '3';
         } else {
@@ -98,5 +116,8 @@ export class AssignmentComponent implements OnInit {
       + "\nSection : " + (<HTMLInputElement>document.getElementById("input_Section")).value
     );
   }
+
+
+
 
 }

@@ -14,11 +14,9 @@
 
 <div class="form-group ">
   <form *ngIf="status_scanning=='2'">
-    <label for="input_Flight_Id">Flight Id</label>
-    <select id="input_Flight_Id" class="form-control" (click)="hidSectionAndAssignment()">
-      <option>F1</option>
-      <option>F2</option>
-      <option>F3</option>
+    <label for="input_Flight_Id">Flight</label>
+    <select id="input_Flight_Id" class="form-control">
+      <option *ngFor="let flight of flights;">{{flight}}</option>
     </select>
     <br>
     <button class="btn btn-outline-success btn-block" type="button" (click)="enableSectionAndAssignment()">Search

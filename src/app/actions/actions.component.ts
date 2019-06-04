@@ -25,7 +25,6 @@ export class ActionsComponent implements OnInit {
   }
 
   receiveMessage($event) { 
-    alert($event);  // Enviar a Main
     this.sendMessage($event);
   }
 
