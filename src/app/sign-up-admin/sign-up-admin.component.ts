@@ -100,35 +100,29 @@ export class SignUpAdminComponent implements OnInit {
         username: username,
         password: password,
       };
-
       this.service.signUpAdmin(json).subscribe((jsonTransfer) => {
-        alert((JSON.stringify(jsonTransfer)));
-
         const jsonWEBAPI = JSON.parse(JSON.parse(JSON.stringify(jsonTransfer)));
+        console.log(jsonWEBAPI);
         if (jsonWEBAPI.http_result == 1) {
-          this.con = 1;
+          const json_role = {
+            roles: this.roleCheck()
+          };
+          this.service.adminSetRole(username, json_role).subscribe((jsonTransferRole) => {
+            const jsonWEBAPI_Role = JSON.parse(JSON.parse(JSON.stringify(jsonTransferRole)));
+            console.log(jsonWEBAPI_Role);
+            if (jsonWEBAPI_Role.http_result == 1) {
+              this.text_alert = jsonWEBAPI_Role.msg;
+              this.type_alert = 'success';
+            } else {
+              this.text_alert = jsonWEBAPI_Role.msg;
+              this.type_alert = 'danger';
+            }
+          });
         } else {
-          this.con = 0;
+          this.text_alert = 'ERROR by assing roles to user';
+          this.type_alert = 'danger';
         }
       });
-      if (this.con == 1) {
-        const json_role = {
-          roles: this.roleCheck()
-        };
-        this.service.adminSetRole(username, json_role).subscribe((jsonTransferRole) => {
-          const jsonWEBAPI_Role = JSON.parse(JSON.parse(JSON.stringify(jsonTransferRole)));
-          if (jsonWEBAPI_Role.http_result == 1) {
-            this.text_alert = jsonWEBAPI_Role.msg;
-            this.type_alert = 'success';
-          } else {
-            this.text_alert = jsonWEBAPI_Role.msg;
-            this.type_alert = 'danger';
-          }
-        });
-      } else {
-        this.text_alert = 'ERROR by assing roles to user';
-        this.type_alert = 'danger';
-      }
     }
     this.show_alert = true;
   }
