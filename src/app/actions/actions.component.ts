@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-actions',
@@ -22,4 +23,16 @@ export class ActionsComponent implements OnInit {
   public init_init() {    
     this.parentMessage = this.childMessage;
   }
+
+  receiveMessage($event) { 
+    alert($event);  // Enviar a Main
+    this.sendMessage($event);
+  }
+
+  @Output() messageEvent = new EventEmitter<string>();
+
+  sendMessage($event) {
+    this.messageEvent.emit($event)
+  }
+
 }

@@ -25,7 +25,7 @@
       <app-scanning [childMessage]="parentMessage"></app-scanning>
   </div>
   <div class="tab-pane fade" id="signOut" role="tabpanel" aria-labelledby="signOut-tab">
-      <app-sign-out [childMessage]="parentMessage"></app-sign-out>
+      <app-sign-out [childMessage]="parentMessage" (messageEvent)="receiveMessage($event)"></app-sign-out>
   </div>
 </div>
 </div>
