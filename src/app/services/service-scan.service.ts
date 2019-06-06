@@ -13,11 +13,12 @@ export class ServiceScanService {
 
   /**
    * Sign Up Admin
-   * @param json '{full_name: XX, email: XX@XX, phone_number: XX, username: XX, password: XX}'
+   * @param json '{"suitcase_id":X, "username": "XXX", "status": "XXX", "comment": "XXXXX"}' if bagggage was rejected or '{"suitcase_id":X, "username": "XXX", "status": "XXX"}' otherwise
    */
-  signUpAdmin(json: any) {
-    console.log(JSON.parse(JSON.stringify(json)));
-    const path = `${this.api}signup`;
+  insertScannedBaggage(json: any) {
+    const path = `${this.api}scan/baggage`;
+    console.log(json);
+    console.log(path);
     return this.http.post(path, "'" + JSON.stringify(json) + "'", httpOptions);
   }
 
@@ -38,6 +39,23 @@ export class ServiceScanService {
     console.log(path);
     return this.http.get(path);
   }
+
+  /**
+   * Get all Flights
+   */
+  getSeccions(flight:number) {
+    const path = `${this.api}${flight}/sections`;
+    console.log(path);
+    return this.http.get(path);
+  }
   
+  /**
+   * Get all Flights
+   */
+  getBaggageUnchecked() {
+    const path = `${this.api}baggage/unchecked`;
+    console.log(path);
+    return this.http.get(path);
+  }
 }
 

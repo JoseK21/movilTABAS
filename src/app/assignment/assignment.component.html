@@ -1,6 +1,8 @@
 <br>
-<label for="input_suitcase_id">Suitcase Id</label>
-<input class="form-control" type="text" placeholder="Suitcase ID" id="input_suitcase_id">
+<label for="input_baggagesU">Suitcase Id</label>
+<select class="form-control" id="input_baggagesU">
+  <option *ngFor="let item of baggagesU">{{item}}</option>
+</select>
 <br>
 <button class="btn btn-outline-success btn-block" type="button" (click)="status_scan()">Scanning</button>
 
@@ -18,8 +20,8 @@
     <select id="input_Flight_Id" class="form-control">
       <option *ngFor="let flight of flights;">{{flight}}</option>
     </select>
-    <br>
-    <button class="btn btn-outline-success btn-block" type="button" (click)="enableSectionAndAssignment()">Search
+    <br>                                                                         
+    <button class="btn btn-outline-success btn-block" type="button" (click)="getSeccions()">Search
       Section</button>
 
     <div>
@@ -27,10 +29,7 @@
         <br>
         <label for="input_Section">Section</label>
         <select id="input_Section" class="form-control" [disabled]="show_S_A">
-          <option>S1</option>
-          <option>S2</option>
-          <option>S3</option>
-          <option>S4</option>
+          <option *ngFor="let secc of seccion_flights;">{{secc}}</option>
         </select>
       </div>
       <button type="button" class="btn btn-info btn-block" id="button_assignment" [disabled]="show_S_A"
@@ -42,7 +41,7 @@
 
 <form *ngIf="status_scanning=='3'">
   <div class="alert alert-warning" role="alert">
-    <strong> Warning </strong>: Prohibited products.
+    <strong> Warning </strong>: Prohibited goods.
   </div>
   <div class="form-group">
     <label for="input_Status">Status</label>
@@ -53,8 +52,8 @@
   </div>
 
   <div class="form-group" [hidden]="!status_rejection">
-    <label for="exampleFormControlTextarea1">Comment</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <label for="input_comment">Comment</label>
+    <input class="form-control" type="text" id="input_comment">
     <small class="text-muted">
       Write a comment explaining why the suitcase was rejected
     </small>
@@ -62,7 +61,16 @@
   </div>
 
   <div class="form-group" [hidden]="!status_rejection">
-    <button type="button" class="btn btn-danger btn-block">To Refuse</button>
+    <button type="button" class="btn btn-danger btn-block" (click)="insertScannedBaggage()">To Refuse</button>
   </div>
 
 </form>
+
+<div *ngIf="show_alert">
+  <div class="alert alert-{{type_alert}} alert-dismissible fade show" role="alert">
+    {{text_alert}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="show_Alert(false)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
