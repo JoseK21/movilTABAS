@@ -50,12 +50,12 @@ export class ServiceScanService {
   /**
    * Get all Flights
    */
-  getSeccions(flight:number) {
+  getSeccions(flight: number) {
     const path = `${this.api}${flight}/sections`;
     console.log(path);
     return this.http.get(path);
   }
-  
+
   /**
    * Get all Flights
    */
@@ -64,5 +64,25 @@ export class ServiceScanService {
     console.log(path);
     return this.http.get(path);
   }
+
+  /**
+     * Get Baggage Scanned
+     */
+    getUnassignedBaggage() {
+    const path = `${this.api}baggage/unassigned`;
+    console.log(path);
+    return this.http.get(path);
+  }
+
+
+  /**
+   * Get Baggage Scanned
+   */
+  getBaggageChecker(suit_id: number) {
+    const path = `${this.api}suitcases/${suit_id}/user`;
+    console.log(path);
+    return this.http.get(path);
+  }
+
 }
 

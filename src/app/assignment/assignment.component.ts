@@ -128,8 +128,6 @@ export class AssignmentComponent implements OnInit {
    * assignment
    */
   public assignment() {
-
-
     let baggagesU = (<HTMLInputElement>document.getElementById("input_baggagesU")).value.trim();
     let flight_Id = (<HTMLInputElement>document.getElementById("input_Flight_Id")).value.trim();
     let section = (<HTMLInputElement>document.getElementById("input_Section")).value.trim();
@@ -158,8 +156,6 @@ export class AssignmentComponent implements OnInit {
           (<HTMLInputElement>document.getElementById("input_Flight_Id")).value = '';
           (<HTMLInputElement>document.getElementById("input_Section")).value = '';
           this.status_scanning = '-1'; // Show Sppiner
-
-
         } else {
           this.show_alert = true;
           this.text_alert = jsonWEBAPI.msg;
@@ -167,11 +163,6 @@ export class AssignmentComponent implements OnInit {
         }
       });
     }
-
-
-
-
-
   }
 
   /**
@@ -199,7 +190,6 @@ export class AssignmentComponent implements OnInit {
         status: 'Rejected',
         comment: comment
       };
-
       this.service_scan.insertScannedBaggage(json).subscribe((jsonTransfer) => {
         const userStr = JSON.stringify(jsonTransfer);
         const jsonWEBAPI = JSON.parse(JSON.parse(userStr));
@@ -218,7 +208,6 @@ export class AssignmentComponent implements OnInit {
     }
   }
 
-
   /**
    * get baggages un
    */
@@ -234,5 +223,4 @@ export class AssignmentComponent implements OnInit {
       }
     });
   }
-
 }

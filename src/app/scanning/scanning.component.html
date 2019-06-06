@@ -1,31 +1,17 @@
 <form>
   <div class="form-group">
-    <label for="exampleFormControlInput1">Suitcase</label>
-    <select class="form-control form-control-sm">
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-      <option>Small select</option>
-    </select>
+    <label for="input_BaggageSCAN">Suitcase</label>
+      <select class="form-control  form-control-sm" id="input_BaggageSCAN">
+        <option *ngFor="let l1 of list1">{{l1}}</option>
+      </select>
   </div>
 
-  <button type="button" class="btn btn-outline-success btn-block">Get Information</button>
+  <button type="button" class="btn btn-outline-success btn-block" (click)="getBaggageInfo()">Get Information</button>
 
   <div>
     <div class="form-group">
-      <label for="exampleFormControlInput1">Registered by</label>
-      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username" value="{{childMessage}}"
+      <label for="output_regBy">Registered by</label>
+      <input type="text" class="form-control" id="output_regBy" placeholder="Username"
         disabled>
     </div>
 
@@ -36,6 +22,15 @@
       </label>
     </div>
     <br>
-    <button type="button" class="btn btn-dark btn-block" routerLink="SignUpAdmin">Go</button>
+    <button type="button" class="btn btn-dark btn-block" >Go</button>
   </div>
 </form>
+
+<div *ngIf="show_alert">
+  <div class="alert alert-{{type_alert}} alert-dismissible fade show" role="alert">
+    {{text_alert}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="show_Alert(false)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
