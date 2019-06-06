@@ -22,6 +22,13 @@ export class ServiceScanService {
     return this.http.post(path, "'" + JSON.stringify(json) + "'", httpOptions);
   }
 
+  assignBagToSection(json: any) {
+    const path = `${this.api}section/assign`;
+    console.log(json);
+    console.log(path);
+    return this.http.post(path, "'" + JSON.stringify(json) + "'", httpOptions);
+  }
+
   /**
    * Do simulation of scanning a baggage
    */

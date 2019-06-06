@@ -10,7 +10,7 @@ import { ServiceScanService } from '../services/service-scan.service';
 export class AssignmentComponent implements OnInit {
   @Input() childMessage: string;      // Username from log In
 
-  
+
   // Alert 
   show_alert: boolean = false;
   text_alert: string = 'All is perfect';
@@ -26,7 +26,7 @@ export class AssignmentComponent implements OnInit {
 
   flights: []; // List of flights
   baggagesU: []; // List of baggages Unchecked
-  seccion_flights : []; // Seccions of a flight
+  seccion_flights: []; // Seccions of a flight
 
 
   constructor(private service_scan: ServiceScanService) { }
@@ -128,12 +128,50 @@ export class AssignmentComponent implements OnInit {
    * assignment
    */
   public assignment() {
-    alert(
-      "Username : " + this.childMessage
-      + "\nSuitcase Id : " + (<HTMLInputElement>document.getElementById("input_baggagesU")).value
-      + "\nFlight Id : " + (<HTMLInputElement>document.getElementById("input_Flight_Id")).value
-      + "\nSection : " + (<HTMLInputElement>document.getElementById("input_Section")).value
-    );
+
+
+    let baggagesU = (<HTMLInputElement>document.getElementById("input_baggagesU")).value.trim();
+    let flight_Id = (<HTMLInputElement>document.getElementById("input_Flight_Id")).value.trim();
+    let section = (<HTMLInputElement>document.getElementById("input_Section")).value.trim();
+
+    if (baggagesU.length == 0 || flight_Id.length == 0 || section.length == 0) {
+      this.show_alert = true;
+      this.text_alert = 'Empty spaces';
+      this.type_alert = 'warning';
+    } else {
+      const json = {
+        suitcase_id: Number(baggagesU),
+        flight_id: Number(flight_Id),
+        section_id: Number(section)
+      };
+
+      this.service_scan.assignBagToSection(json).subscribe((jsonTransfer) => {
+        const userStr = JSON.stringify(jsonTransfer);
+        const jsonWEBAPI = JSON.parse(JSON.parse(userStr));
+        console.log(jsonWEBAPI);
+        if (jsonWEBAPI.http_result == 1) {
+          this.getBaggages(); // Reinicia la lista de baggage
+          this.show_alert = true;
+          this.text_alert = jsonWEBAPI.msg;
+          this.type_alert = 'success';
+          (<HTMLInputElement>document.getElementById("input_baggagesU")).value = '';
+          (<HTMLInputElement>document.getElementById("input_Flight_Id")).value = '';
+          (<HTMLInputElement>document.getElementById("input_Section")).value = '';
+          this.status_scanning = '-1'; // Show Sppiner
+
+
+        } else {
+          this.show_alert = true;
+          this.text_alert = jsonWEBAPI.msg;
+          this.type_alert = 'danger';
+        }
+      });
+    }
+
+
+
+
+
   }
 
   /**
