@@ -88,6 +88,12 @@ export class SignUpAdminComponent implements OnInit {
     if (f_name.length == 0 || l_name.length == 0 || email.length == 0 || phone_number.length == 0 || username.length == 0 || password.length == 0) {
       this.text_alert = 'Empty spaces';
       this.type_alert = 'warning';
+    } else if (this.validateEmail(email) == false) {
+      this.text_alert = 'The email does not have a valid format';
+      this.type_alert = 'warning';
+    } else if (phone_number.length != 8) {
+      this.text_alert = 'Length of phone number should be of 8 digit';
+      this.type_alert = 'warning';
     }
     else if (this.roleCheck() == 'ERROR') {
       this.text_alert = 'Role Empty';
@@ -126,4 +132,13 @@ export class SignUpAdminComponent implements OnInit {
     }
     this.show_alert = true;
   }
+
+  /**
+   * name
+   */
+  public validateEmail(email: string) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
+
+
 }
