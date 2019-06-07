@@ -20,12 +20,12 @@ export class ScanningComponent implements OnInit {
 
   constructor(private service_scan: ServiceScanService) { }
 
-  ngOnInit( ) {  this.getBaggageActive()  }
+  ngOnInit( ) {  this.getUnassignedBaggage()  }
 
   /**
    * getRoles
    */
-  public getBaggageActive() {
+  public getUnassignedBaggage() { 
     this.service_scan.getUnassignedBaggage().subscribe((jsonTransfer) => {
       const userStr = JSON.stringify(jsonTransfer);
       const jsonWEBAPI = JSON.parse(JSON.parse(userStr));
@@ -34,7 +34,7 @@ export class ScanningComponent implements OnInit {
         this.list1 = jsonWEBAPI.suitcases;     
       } else {
         this.list1 = [];
-        this.list1.push("Error")
+          this.list1.push(jsonWEBAPI.msg)
       }
     });
   }
@@ -55,41 +55,4 @@ export class ScanningComponent implements OnInit {
       }
     });
   }
-
-   /**
-   * Log In
-   */
-  public xxx() {
-    let username: string = (<HTMLInputElement>document.getElementById("input_BaggageSCAN")).value.trim();
-    let password: string = (<HTMLInputElement>document.getElementById("input_Password")).value.trim();
-    let role: string = (<HTMLInputElement>document.getElementById("input_Role")).value.trim();
-
-    if (username.length == 0 || password.length == 0 ||role == 'ERROR') { //if (username.length == 0 || password.length == 0 || role.length == 0) {
-      this.show_alert = true;
-      this.text_alert = 'Empty spaces';
-      this.type_alert = 'warning';
-    } else {
-      const json = {
-        username: username,
-        password: password,
-        role: role
-      };
-
-      /*
-      this.service_scan.logIn(json).subscribe((jsonTransfer) => {
-        const userStr = JSON.stringify(jsonTransfer);
-        const jsonWEBAPI = JSON.parse(JSON.parse(userStr));
-        console.log(jsonWEBAPI);
-        if (jsonWEBAPI.http_result == 1) {
-        } else {
-          this.show_alert = true;
-          this.text_alert = jsonWEBAPI.msg;
-          this.type_alert = 'danger';
-        }
-      });
-      */
-    }
-  }
-
-
 }
