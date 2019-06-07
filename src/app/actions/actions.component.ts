@@ -9,29 +9,32 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ActionsComponent implements OnInit {
 
   constructor() { }
+  ngOnInit() { this.init_init(); }
+  @Output() messageEvent = new EventEmitter<string>();
+  @Input() childMessage: string;
+  parentMessage: string = 'Empty';
 
-  ngOnInit() {
-    this.init_init();
-  }
-
-  @Input() childMessage: string;    // Username from log -> from main
-  parentMessage : string = 'Empty';
-   
   /**
-   * init
+   * 
    */
-  public init_init() {    
+  public init_init() {
     this.parentMessage = this.childMessage;
   }
 
-  receiveMessage($event) { 
+  /**
+   * 
+   * @param $event 
+   */
+  receiveMessage($event) {
     this.sendMessage($event);
   }
 
-  @Output() messageEvent = new EventEmitter<string>();
 
+  /**
+   * 
+   * @param $event 
+   */
   sendMessage($event) {
     this.messageEvent.emit($event)
   }
-
 }

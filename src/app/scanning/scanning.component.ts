@@ -49,7 +49,7 @@ export class ScanningComponent implements OnInit {
       const jsonWEBAPI = JSON.parse(JSON.parse(userStr));
       console.log(jsonWEBAPI);
       if (jsonWEBAPI.http_result == 1) {
-        (<HTMLInputElement>document.getElementById("output_regBy")).value = jsonWEBAPI.user;     //  sfdfdfdfd
+        (<HTMLInputElement>document.getElementById("output_regBy")).value = jsonWEBAPI.user;     
       } else {
         (<HTMLInputElement>document.getElementById("output_regBy")).value = 'Error - Don´t Load the User'
       }

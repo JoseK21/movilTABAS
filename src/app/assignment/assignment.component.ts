@@ -77,8 +77,25 @@ export class AssignmentComponent implements OnInit {
         this.pass = jsonWEBAPI.pass;
         this.status = jsonWEBAPI.status;
         if (this.pass == true) {
-          this.getFlights();
-          this.status_scanning = '2';
+          let suitcase_id: string = (<HTMLInputElement>document.getElementById("input_baggagesU")).value.trim();
+
+          const json = {
+            suitcase_id: Number(suitcase_id),
+            username: this.childMessage,  // from other windows
+            status: this.status
+          };
+          this.service_scan.insertScannedBaggage(json).subscribe((jsonTransfer) => {
+            const userStr = JSON.stringify(jsonTransfer);
+            const jsonWEBAPI = JSON.parse(JSON.parse(userStr));
+            console.log(jsonWEBAPI);
+            if (jsonWEBAPI.http_result == 1) {
+              this.getFlights();
+              this.status_scanning = '2';
+            } else {
+              alert("Error add accepted baggage ");
+            }
+          });
+         
         } else if (this.pass == false) {
           this.status_scanning = '3';
         } else {
