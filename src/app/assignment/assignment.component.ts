@@ -34,7 +34,7 @@ export class AssignmentComponent implements OnInit {
   ngOnInit() { this.getBaggages() }
 
   /**
-   * getFlights
+   * Devuelve vuelos disopnibles
    */
   public getFlights() {
     this.service_scan.getFlights().subscribe((jsonTransfer) => {
@@ -49,7 +49,7 @@ export class AssignmentComponent implements OnInit {
   }
 
   /**
-   * get seccion of a flight 
+   * Gets sections of a flight
    */
   public getSeccions() {
     let f: string = (<HTMLInputElement>document.getElementById("input_Flight_Id")).value.trim();
@@ -66,7 +66,7 @@ export class AssignmentComponent implements OnInit {
   }
 
   /**
-   * scanBaggage
+   * Scans a user´s baggage returns an alert if something goes wrong
    */
   public scanBaggage() {
     this.service_scan.scanBaggage().subscribe((jsonTransfer) => {
@@ -106,7 +106,7 @@ export class AssignmentComponent implements OnInit {
   }
 
   /**
-   *  status_scan
+   *  Shows icon of scanning a suitcase
    */
   public status_scan() {
     this.status_scanning = '1'; // Show Sppiner
@@ -142,7 +142,7 @@ export class AssignmentComponent implements OnInit {
   }
 
   /**
-   * assignment
+   * assigns suitcases to an airplane section
    */
   public assignment() {
     let baggagesU = (<HTMLInputElement>document.getElementById("input_baggagesU")).value.trim();
@@ -190,7 +190,7 @@ export class AssignmentComponent implements OnInit {
   }
 
   /**
-   * insertScannedBaggage
+   * assigns scanned status to the suitcases 
    */
   public insertScannedBaggage() {
     let suitcase_id: string = (<HTMLInputElement>document.getElementById("input_baggagesU")).value.trim();
@@ -226,7 +226,7 @@ export class AssignmentComponent implements OnInit {
   }
 
   /**
-   * get baggages un
+   * Gets unchecked suitcases
    */
   public getBaggages() {
     this.service_scan.getBaggageUnchecked().subscribe((jsonTransfer) => {

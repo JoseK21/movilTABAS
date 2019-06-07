@@ -22,6 +22,10 @@ export class ServiceScanService {
     return this.http.post(path, "'" + JSON.stringify(json) + "'", httpOptions);
   }
 
+  /**
+   * 
+   * @param json 
+   */
   assignBagToSection(json: any) {
     const path = `${this.api}section/assign`;
     console.log(json);

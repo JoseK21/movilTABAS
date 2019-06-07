@@ -23,7 +23,7 @@ export class ScanningComponent implements OnInit {
   ngOnInit( ) {  this.getUnassignedBaggage()  }
 
   /**
-   * getRoles
+   * Gets unassigned suitcases 
    */
   public getUnassignedBaggage() { 
     this.service_scan.getUnassignedBaggage().subscribe((jsonTransfer) => {
@@ -40,7 +40,7 @@ export class ScanningComponent implements OnInit {
   }
 
   /**
-   * getRoles
+   * Gets a single suitcase from a user
    */
   public getBaggageInfo() {
     let id: string = (<HTMLInputElement>document.getElementById("input_BaggageSCAN")).value.trim();

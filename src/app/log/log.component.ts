@@ -37,16 +37,14 @@ export class LogComponent implements OnInit {
   }
 
 
-  /**
-   * show_Modal
-   */
+
   public show_Alert(value: boolean) {
     this.show_alert = value;
   }
 
 
   /**
-   * Log In
+   * Checks if username exists
    */
   public logIn() {
     let username: string = (<HTMLInputElement>document.getElementById("input_Username")).value.trim();
@@ -81,7 +79,7 @@ export class LogComponent implements OnInit {
   }
 
   /**
-   * getRoles
+   * Gets user roles from database 
    */
   public getRoles() {
     this.service_SignUp.getRoles().subscribe((jsonTransfer) => {

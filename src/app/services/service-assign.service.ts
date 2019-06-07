@@ -26,7 +26,7 @@ export class ServiceAssignService {
  
 
   /**
-   * Get all Roles
+   * Gets suitcases from a user.
    */
   getBaggageChecker(suit_id:string) {
     const path = `${this.api}suitcases/${suit_id}/user`;
