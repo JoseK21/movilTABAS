@@ -7,15 +7,16 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class SignOutComponent implements OnInit {
 
+  message: string = "log_in"
   @Input() childMessage: string;
+  @Output() messageEvent = new EventEmitter<string>();
+
   constructor() { }
   ngOnInit() {  }
 
-  message: string = "log_in"
-
-  @Output() messageEvent = new EventEmitter<string>();
-
-  
+  /**
+   * Send Message to Sign Out
+   */
   sendMessage() {
     this.messageEvent.emit(this.message)
   }

@@ -8,33 +8,32 @@ import { ServiceScanService } from '../services/service-scan.service';
   styleUrls: ['./assignment.component.css']
 })
 export class AssignmentComponent implements OnInit {
-  @Input() childMessage: string;      // Username from log In
-
-
+  
   // Alert 
   show_alert: boolean = false;
   text_alert: string = 'All is perfect';
   type_alert: string = 'success';
 
-
-  status_scanning: String = '';   // 0: Nothing -- 1: Spinner -- 2: Options
+  //Animation
+  status_scanning: String = '';
+  status: string = '';
   status_rejection: boolean = false;
   show_S_A: boolean = true;
-
   pass: boolean = false;
-  status: string = '';
+  
+  //List
+  flights: [];
+  baggagesU: [];
+  seccion_flights: []; 
 
-  flights: []; // List of flights
-  baggagesU: []; // List of baggages Unchecked
-  seccion_flights: []; // Seccions of a flight
-
+  @Input() childMessage: string; 
 
   constructor(private service_scan: ServiceScanService) { }
 
   ngOnInit() { this.getBaggages() }
 
   /**
-   * Devuelve vuelos disopnibles
+   * Get Flights' List
    */
   public getFlights() {
     this.service_scan.getFlights().subscribe((jsonTransfer) => {
@@ -49,7 +48,7 @@ export class AssignmentComponent implements OnInit {
   }
 
   /**
-   * Gets sections of a flight
+   * Get sections of a flight 
    */
   public getSeccions() {
     let f: string = (<HTMLInputElement>document.getElementById("input_Flight_Id")).value.trim();
@@ -78,7 +77,6 @@ export class AssignmentComponent implements OnInit {
         this.status = jsonWEBAPI.status;
         if (this.pass == true) {
           let suitcase_id: string = (<HTMLInputElement>document.getElementById("input_baggagesU")).value.trim();
-
           const json = {
             suitcase_id: Number(suitcase_id),
             username: this.childMessage,  // from other windows
@@ -94,8 +92,7 @@ export class AssignmentComponent implements OnInit {
             } else {
               alert("Error add accepted baggage ");
             }
-          });
-         
+          });         
         } else if (this.pass == false) {
           this.status_scanning = '3';
         } else {
@@ -116,7 +113,7 @@ export class AssignmentComponent implements OnInit {
   }
 
   /**
-   * switch_On
+   * Change Switch_On_OFF Status
    */
   public switch_On() {
     let sw: boolean = (<HTMLInputElement>document.getElementById("switch_rejection")).checked;
@@ -128,21 +125,21 @@ export class AssignmentComponent implements OnInit {
   }
 
   /**
-   * enableSectionAndAssignment
+   * Enable Section And Assignment
    */
   public enableSectionAndAssignment() {
     this.show_S_A = false;
   }
 
   /**
-   * enableSectionAndAssignment
+   * Disable Section And Assignment
    */
   public hidSectionAndAssignment() {
     this.show_S_A = true;
   }
 
   /**
-   * assigns suitcases to an airplane section
+   * Assign suitcases to an airplane section
    */
   public assignment() {
     let baggagesU = (<HTMLInputElement>document.getElementById("input_baggagesU")).value.trim();
@@ -159,20 +156,19 @@ export class AssignmentComponent implements OnInit {
         flight_id: Number(flight_Id),
         section_id: Number(section)
       };
-
       this.service_scan.assignBagToSection(json).subscribe((jsonTransfer) => {
         const userStr = JSON.stringify(jsonTransfer);
         const jsonWEBAPI = JSON.parse(JSON.parse(userStr));
         console.log(jsonWEBAPI);
         if (jsonWEBAPI.http_result == 1) {
-          this.getBaggages(); // Reinicia la lista de baggage
+          this.getBaggages(); 
           this.show_alert = true;
           this.text_alert = jsonWEBAPI.msg;
           this.type_alert = 'success';
           (<HTMLInputElement>document.getElementById("input_baggagesU")).value = '';
           (<HTMLInputElement>document.getElementById("input_Flight_Id")).value = '';
           (<HTMLInputElement>document.getElementById("input_Section")).value = '';
-          this.status_scanning = '-1'; // Show Sppiner
+          this.status_scanning = '-1'; 
         } else {
           this.show_alert = true;
           this.text_alert = jsonWEBAPI.msg;
@@ -183,14 +179,14 @@ export class AssignmentComponent implements OnInit {
   }
 
   /**
-   * show_Modal
+   * Show Alert
    */
   public show_Alert(value: boolean) {
     this.show_alert = value;
   }
 
   /**
-   * assigns scanned status to the suitcases 
+   * Assigns scanned status to the suitcases 
    */
   public insertScannedBaggage() {
     let suitcase_id: string = (<HTMLInputElement>document.getElementById("input_baggagesU")).value.trim();

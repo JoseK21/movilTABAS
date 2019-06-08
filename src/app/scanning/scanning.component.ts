@@ -14,8 +14,11 @@ export class ScanningComponent implements OnInit {
   text_alert: string = 'All is perfect';
   type_alert: string = 'success';
 
+  //Interface
   pass: string = '';
   status: string = '';
+  
+  //List
   list1: String[] = [];
 
   constructor(private service_scan: ServiceScanService) { }

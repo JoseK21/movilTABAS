@@ -7,11 +7,9 @@ import { LogComponent } from '../log/log.component';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-
-  // show : string = 'actions';
+  //Variables
   show: string = 'log_in';
   username: string = '';
-
   parentMessage = "message from parent"
 
   @ViewChild(LogComponent) child;
@@ -20,11 +18,18 @@ export class MainComponent implements OnInit {
 
   ngOnInit() { }
 
+  /**
+   * Receive Message:Username
+   * @param $event 
+   */
   receiveMessage($event) {
     this.username = $event;
     this.show = 'actions'
   }
-  
+  /**
+   * Receive Message:SignOut
+   * @param $event 
+   */
   receiveMessageSIGN_OUT($event) {
     if($event=='log_in'){
       this.show = 'log_in'

@@ -9,8 +9,6 @@ import { ServiceLogInService } from '../services/service-log-in.service';
   styleUrls: ['./log.component.css']
 })
 export class LogComponent implements OnInit {
-
-
   // Show password : check box
   password_show: string = 'password';
 
@@ -22,29 +20,34 @@ export class LogComponent implements OnInit {
   // Router
   router_Link: string = '';
 
-  constructor(private service_SignUp: ServiceSignUpService, private service_LogIn: ServiceLogInService) { }
-
+  //List
   listRole: String[] = [];
-
-
-  ngOnInit() { this.getRoles() }
-
 
   @Output() messageEvent = new EventEmitter<string>();  // nombre de usuario en msg
 
+  constructor(private service_SignUp: ServiceSignUpService, private service_LogIn: ServiceLogInService) { }
+
+  ngOnInit() { this.getRoles() }
+
+  /**
+   * Send Username
+   * @param username 
+   */
   sendUsername(username: string) {
     this.messageEvent.emit(username)
   }
 
-
-
+  /**
+   * Show Alert
+   * @param value 
+   */
   public show_Alert(value: boolean) {
     this.show_alert = value;
   }
 
 
   /**
-   * Checks if username exists
+   * Log In
    */
   public logIn() {
     let username: string = (<HTMLInputElement>document.getElementById("input_Username")).value.trim();
@@ -61,7 +64,6 @@ export class LogComponent implements OnInit {
         password: password,
         role: role
       };
-
       this.service_LogIn.logIn(json).subscribe((jsonTransfer) => {
         const userStr = JSON.stringify(jsonTransfer);
         const jsonWEBAPI = JSON.parse(JSON.parse(userStr));
@@ -79,7 +81,7 @@ export class LogComponent implements OnInit {
   }
 
   /**
-   * Gets user roles from database 
+   * Gets Roles' List 
    */
   public getRoles() {
     this.service_SignUp.getRoles().subscribe((jsonTransfer) => {
@@ -98,7 +100,7 @@ export class LogComponent implements OnInit {
 
 
   /**
-   * showPassword
+   * Show/Hide Password
    */
   public showPassword() {
     if ((<HTMLInputElement>document.getElementById("check_Password")).checked) {

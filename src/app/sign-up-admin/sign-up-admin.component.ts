@@ -14,7 +14,7 @@ export class SignUpAdminComponent implements OnInit {
   type_alert: string = '';
   // Interface
   password_show: string = 'password';
-
+  //List
   listRole: String[] = [];
 
   constructor(private service: ServiceSignUpService) { }
@@ -22,7 +22,7 @@ export class SignUpAdminComponent implements OnInit {
   ngOnInit() { this.getRoles(); }
 
   /**
-   * roleCheck
+   * Set Checked Roles
    */
   public roleCheck() {
     let str: String[] = [];
@@ -40,7 +40,7 @@ export class SignUpAdminComponent implements OnInit {
   }
 
   /**
-   * getRoles
+   * Get Roles' List
    */
   public getRoles() {
     this.service.getRoles().subscribe((jsonTransfer) => {
@@ -57,14 +57,14 @@ export class SignUpAdminComponent implements OnInit {
   }
 
   /**
-   * show_Modal
+   * Show Alert
    */
   public show_Alert(value: boolean) {
     this.show_alert = value;
   }
 
   /**
-   * showPassword
+   * Show/Hide Password
    */
   public showPassword() {
     if ((<HTMLInputElement>document.getElementById("check_Password_SU")).checked) {
@@ -134,7 +134,7 @@ export class SignUpAdminComponent implements OnInit {
   }
 
   /**
-   * name
+   * Validate Email
    */
   public validateEmail(email: string) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)

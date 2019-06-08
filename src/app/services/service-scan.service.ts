@@ -12,8 +12,8 @@ export class ServiceScanService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Sign Up Admin
-   * @param json '{"suitcase_id":X, "username": "XXX", "status": "XXX", "comment": "XXXXX"}' if bagggage was rejected or '{"suitcase_id":X, "username": "XXX", "status": "XXX"}' otherwise
+   * Insert Scanned Baggage
+   * @param json '{"suitcase_id":X, "username": "XXX", "status": "XXX", "comment": "XXXXX"}'
    */
   insertScannedBaggage(json: any) {
     const path = `${this.api}scan/baggage`;
@@ -23,7 +23,7 @@ export class ServiceScanService {
   }
 
   /**
-   * 
+   * Assign BagCart to Section
    * @param json 
    */
   assignBagToSection(json: any) {
@@ -52,7 +52,7 @@ export class ServiceScanService {
   }
 
   /**
-   * Get all Flights
+   * Get all Sections of a Flight
    */
   getSeccions(flight: number) {
     const path = `${this.api}${flight}/sections`;
@@ -61,7 +61,7 @@ export class ServiceScanService {
   }
 
   /**
-   * Get all Flights
+   * Get Unchecked Baggages 
    */
   getBaggageUnchecked() {
     const path = `${this.api}baggage/unchecked`;
@@ -70,9 +70,9 @@ export class ServiceScanService {
   }
 
   /**
-     * Get Baggage Scanned
-     */
-    getUnassignedBaggage() {
+   * Get Unassigned Baggage
+  */
+  getUnassignedBaggage() {
     const path = `${this.api}baggage/unassigned`;
     console.log(path);
     return this.http.get(path);
@@ -80,7 +80,7 @@ export class ServiceScanService {
 
 
   /**
-   * Get Baggage Scanned
+   * Get Checker Baggage
    */
   getBaggageChecker(suit_id: number) {
     const path = `${this.api}suitcases/${suit_id}/user`;
